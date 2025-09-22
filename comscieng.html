@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIT</title>
+  <link rel="icon" type="image/png" href="picture/logo.jpg">
+  <style>
+    /* General body */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(220, 207, 17, 0.874);
+      min-height: 100vh;
+      padding-top: 140px;
+      /* navbar + sub-navbar height */
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 10px 20px;
+      background-color: rgba(220, 207, 17, 0.874);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 990;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-section img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .logo {
+      font-size: 24px;
+      color: rgb(255, 69, 0);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .menu {
+      display: flex;
+      gap: 12px;
+      margin-right: 20px;
+    }
+
+    .menu a {
+      color: #000;
+      text-decoration: none;
+      padding: 8px 12px;
+      font-size: 18px;
+    }
+
+    .btn {
+      border: none;
+      background-color: black;
+      color: white !important;
+      padding: 8px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+    }
+
+    /* Sub-navbar */
+    .sub-navbar {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: #4ba3ab;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sub-navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 8px 12px;
+    }
+
+    .sub-navbar a:hover {
+      background-color: #ddd;
+      color: red;
+      border-radius: 8px;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      background-color: #333;
+      color: white;
+      padding: 8px 12px;
+      font-size: 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Hero Image */
+    .img1 {
+      width: 95%;
+      max-width: 1275px;
+      height: 500px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 20px auto;
+      display: block;
+    }
+
+    /* ------- Card container where lookup lives ------- */
+    .card13 {
+      max-width: 1100px;
+      margin: 20px auto;
+      background: transparent;
+      padding: 20px
+    }
+
+    /* ------- Lookup card styles ------- */
+    .lookup-card {
+      background-color: #4ba3ab;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      padding: 22px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .lookup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px
+    }
+
+    .lookup-header h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #183642
+    }
+
+    .lookup-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    /* form layout */
+    .lookup-form {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      align-items: end
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e6edf3;
+      background: #fff
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px
+    }
+
+    .btn1 {
+      background: #d9d330;
+      color: #000000;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer
+    }
+
+    .btn.secondary {
+      background: #4ba3ab color: #111;
+      border: 1px solid #e5e7eb
+    }
+
+    /* results */
+    .results {
+      margin-top: 18px
+    }
+
+    .results .empty {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px dashed #e4d45a;
+      color: var(--muted)
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #eef3f6;
+      background: linear-gradient(180deg, #fcffff, #f9fffe)
+    }
+
+    .item .left {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .item .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #4ba3ab;
+      font-weight: 700
+    }
+
+    .item .meta {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .item .actions {
+      display: flex;
+      gap: 8px
+    }
+
+    .item a.open {
+      background: #29b0ba;
+      color: #000000;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none
+    }
+
+    .item button.copy {
+      background: #e6e62fbd;
+      border: 1px solid #000000;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer
+    }
+
+    /* small screen adjustments */
+    @media (max-width:900px) {
+      .lookup-form {
+        grid-template-columns: repeat(1, 1fr)
+      }
+
+      .item {
+        flex-direction: column;
+        align-items: flex-start
+      }
+
+      body {
+        padding-top: 160px
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #000000;
+      color: white;
+      padding: 40px 20px 20px;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-container>div {
+      flex: 1 1 250px;
+    }
+
+    .footer h3,
+    .footer h4 {
+      color: orangered;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: orange;
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      border-top: 1px solid #555;
+      padding-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+    a {
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+a:hover {
+  color: red;
+}
+.card5 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; 
+}
+
+.card {
+  width: 1300px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  margin-left: 30px;
+  background-color: #4ba3ab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo-section">
+      <a href="#"><img src="picture/BIT LOGO.png" alt="Logo"></a>
+      <a href="#" class="logo">Budhha Institute Of Technology</a>
+    </div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="About.html">About</a>
+      <a href="Gallery.html">Service</a>
+      <a href="Contact.html" class="btn">Contact</a>
+    </div>
+  </div>
+
+  <!-- Sub Navbar -->
+  <div class="sub-navbar">
+    <a href="facility.html">Facility</a>
+    <div class="dropdown">
+      <a href="admission.html" class="dropbtn">Admission ▾</a>
+      <div class="dropdown-content">
+        <a href="admission.html">Admission</a>
+        <a href="free.html">Fees Structure</a>
+        <a href="admissionEligi.html">Admission Eligibility</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="comscieng.html" class="dropbtn">Diploma ▾</a>
+      <div class="dropdown-content">
+        <a href="comscieng.html">Com Sci Engg</a>
+        <a href="#">Mechanical Engg</a>
+        <a href="#">Civil Engg</a>
+        <a href="#">Electrical Engg</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropbtn">B-TECH ▾</a>
+      <div class="dropdown-content">
+        <a href="#">Com Sci Engg</a>
+        <a href="#">Civil Engg</a>
+        <a href="#">Electrical Engg</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="engineering.html" class="dropbtn">Academics ▾</a>
+      <div class="dropdown-content">
+        <a href="engineering.html">Engineering</a>
+        <a href="service.html">Gallery</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="studentform.html" class="dropbtn">Apply Form ▾</a>
+      <div class="dropdown-content">
+        <a href="studentform.html">Apply here</a>
+        <a href="viewstudent.php">View student</a>
+      </div>
+    </div>
+    <a href="rules.html">Rules</a>
+  </div>
+
+  <!-- Hero Image -->
+  <div class="main-container">
+    <div class="card5">
+      <div class="card">
+        <img src="picture/cse1.webp" class="img1">
+      </div>
+    </div>
+  </div>
+
+  <!-- Lookup Section -->
+  <main class="card13">
+    <section class="lookup-card">
+      <div class="lookup-header">
+        <div>
+          <h2 align="center">Study Material Lookup</h2>
+        </div>
+      </div>
+      <form id="materialForm" class="lookup-form">
+        <div class="field">
+          <label for="semester">Semester</label>
+          <select id="semester" required>
+            <option value="">Select Semester</option>
+            <option value="1">1st</option>
+            <option value="2">2nd</option>
+            <option value="3">3rd</option>
+            <option value="4">4th</option>
+            <option value="5">5th</option>
+            <option value="6">6th</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="type">Material Type</label>
+          <select id="type" required>
+            <option value="">Select Type</option>
+            <option value="Notes">Notes</option>
+            <option value="PYQ">Previous Year Questions</option>
+            <option value="Practical">Practical Notes</option>
+            <option value="Model">Model Sets</option>
+            <option value="Books">Books</option>
+          </select>
+        </div>
+        <div class="field btn-row">
+          <button type="submit" class="btn1">Search</button>
+          <button type="button" id="clearBtn" class="btn secondary">Clear</button>
+        </div>
+      </form>
+      <div id="results" class="results"></div>
+    </section>
+  </main>
+
+  <!-- Map -->
+  <h2 align="center">Our Location</h2>
+  <div style="text-align:center;">
+  <iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.9206633238286!2d84.96299037555471!3d24.729603850480967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f32b6147fc08a3%3A0x3b126faa3c2cbba5!2sBuddha%20Institute%20Of%20Technology%2C%20Gaya!5e0!3m2!1sen!2sin!4v1755601005337!5m2!1sen!2sin"
+  width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div>
+        <h3>Best Education</h3>
+        <p>Visit The Budhha Institute Of Technology :- Plot No : B-3 (P), Industrial Area, Gaya NH:22, Gaya-Dobhi Road,
+          Near Tekuna Farm, Gaya Bihar - 823004!</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About Us</a></li>
+          <li><a href="Gallery.html">Service</a></li>
+          <li><a href="Contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <p>📍 Gaya, Bihar - 823004</p>
+        <p>📞 +91-9006246620</p>
+        <p>📧 manushankar1318@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Buddha Institute of Technology Gaya | Designed by Manushankar Kumar</p>
+    </div>
+  </footer>
+
+  <script>
+    // Safe toggle if sidebar used elsewhere
+    function toggleSidebar() { const s = document.getElementById('sidebar'); if (s) s.classList.toggle('active') }
+
+    // Corrected materials object
+    const materials = {
+      '1': {
+        'Notes': [
+          { title: 'Applied Chemistry', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/applied-chemistry/file-preview/v/OW9PNEQ3dHJMRE1GQlU3aldSVDl2Zz09Ojo4YjE4NmEyNGE1YmI0MWRm' },
+          { title: 'Applied Mathematics II', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/applied-mathematics-2/file-preview/v/UDk5MUllUzBFeFdUK01DVW5yOXBEZz09OjpjMmExM2ViN2FmZGQxNjAz' },
+          { title: 'Applied Physics II', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/applied-physics-2-notes/file-preview/v/M0tMY3VCbXovWmZ3UHRFN2twQkg0Zz09Ojo4MzcyYTM3ZDY1NDMzODll' },
+          { title: 'Engineering Mechanics', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/engg-mechanic-notes/file-preview/v/MXFDU1VvL2NGanpLc2NmOFVka29TQT09OjpjOTU1NmEwMzc4ZDEwMWM5' },
+          { title: 'Engineering Graphics', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/engineering-graphics/file-preview/v/SU53UmtMMWhMaGVVa3EzM1FFTjhxQT09Ojo2NDMzZGZjNDlmNTVhYWJj' },
+        ],
+        'PYQ': [
+          { title: 'Mathematics I — Previous Year Questions', url: '' },
+          { title: 'Mathematics I — Previous Year Questions', url: '' },
+          { title: 'Mathematics I — Previous Year Questions', url: '' },
+          { title: 'Mathematics I — Previous Year Questions', url: '' },
+        ],
+        'Practical': [
+          { title: 'Physics Lab Manual', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Practical&semester=1' }
+        ],
+        'Model': [
+          { title: 'Mathematics Model Set', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Model+Set&semester=1' }
+        ],
+        'Books': [
+          { title: 'Engineering Mathematics Book', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Books&semester=1' }
+        ]
+      },
+      '2': {
+        'Notes': [
+          { title: 'Engineering Mechanics', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/engineering-mechanics/file-preview/v/Vm5MdUZRK2thcDBJaHlDOTNRb2xCZz09Ojo3YWQzYzg5OWVlOGM0NGI5' },
+          { title: 'FOEE NOTES', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/foee-notes/file-preview/v/eVZ4eDBYaU05T2xkZzlGaUs1ZE9Idz09OjpkM2YwZDU4ODM1NWE1MjBk' },
+          { title: 'Introduction to IT System', url: 'https://www.docsansar.com/study-materials/sbte-board/common/sem-1-and-2/notes/introduction-to-it-system/file-preview/v/RWI2S2lWUDM1ZUV4VUpIaEF2RUd2dz09OjplMzQ3MTkxM2MzZjI2MDU4' }
+        ],
+        'PYQ': [
+          { title: 'Mathematics II — Previous Year', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Previous+Year+Questions&semester=2' }
+        ],
+        'Practical': [
+          { title: 'Chemistry Lab Manual', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Practical&semester=2' }
+        ],
+        'Model': [
+          { title: 'Physics Model Set', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Model+Set&semester=2' }
+        ],
+        'Books': [
+          { title: 'Engineering Physics Book', url: 'https://www.docsansar.com/study-materials/sbte/main?resourcType=Books&semester=2' }
+        ]
+      }
+      // You can add semesters 3..6 here following same pattern
+    };
+
+    // Helpers to render results cleanly (one result per line)
+    const resultsDiv = document.getElementById('results');
+
+    function clearResults() { resultsDiv.innerHTML = '' }
+
+    function createResultNode(item, sem, type) {
+      const wrap = document.createElement('div');
+      wrap.className = 'item';
+
+      const left = document.createElement('div');
+      left.className = 'left';
+
+      const icon = document.createElement('div');
+      icon.className = 'icon';
+      // first letter(s) as icon
+      icon.textContent = (item.title || 'DOC').split(' ').slice(0, 2).map(s => s[0]).join('').toUpperCase();
+
+      const info = document.createElement('div');
+      const title = document.createElement('div');
+      title.innerHTML = '<strong>' + (item.title || 'Untitled') + '</strong>';
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = `Semester: ${sem} • Type: ${type}`;
+
+      info.appendChild(title);
+      info.appendChild(meta);
+
+      left.appendChild(icon);
+      left.appendChild(info);
+
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+
+      const openLink = document.createElement('a');
+      openLink.className = 'open';
+      openLink.href = item.url;
+      openLink.target = '_blank';
+      openLink.rel = 'noopener noreferrer';
+      openLink.textContent = 'Open';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy';
+      copyBtn.type = 'button';
+      copyBtn.textContent = 'Copy link';
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard && navigator.clipboard.writeText(item.url).then(() => {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => copyBtn.textContent = 'Copy link', 1200);
+        }).catch(() => {
+          alert('Cannot copy link');
+        });
+      });
+
+      actions.appendChild(openLink);
+      actions.appendChild(copyBtn);
+
+      wrap.appendChild(left);
+      wrap.appendChild(actions);
+
+      return wrap;
+    }
+
+    function renderResults(sem, type) {
+      clearResults();
+      if (!sem || !type) {
+        resultsDiv.innerHTML = '<div class="empty">Please select both semester and material type, then click Search.</div>';
+        return;
+      }
+
+      const list = (materials[sem] && materials[sem][type]) || [];
+      if (list.length === 0) {
+        resultsDiv.innerHTML = '<div class="empty">No results found. Try another semester/type or contact admin to upload materials.</div>';
+        return;
+      }
+
+      const container = document.createElement('div');
+      container.className = 'list';
+
+      list.forEach(item => {
+        container.appendChild(createResultNode(item, sem, type));
+      });
+
+      resultsDiv.appendChild(container);
+    }
+
+    // Hook up the form
+    const form = document.getElementById('materialForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const sem = document.getElementById('semester').value;
+      const type = document.getElementById('type').value;
+      renderResults(sem, type);
+    });
+
+    // Clear button behavior
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      form.reset();
+      clearResults();
+    });
+
+    // Optional: render default message
+    resultsDiv.innerHTML = '<div class="empty">Select semester & type, then click Search to see materials.</div>';
+  </script>
+</body>
+
+</html>
