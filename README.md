@@ -11,6 +11,6 @@ Developed a fully responsive website compatible with desktop, tablet, and mobile
 
 Contact Us.
 
-• Used HTML, CSS, JavaScript for front-end development and interactivity.
+• Used HTML, CSS, php, Xampp for front-end development and interactivity.
 
 • Designed clean and structured UI for easy navigation and better user experience.
